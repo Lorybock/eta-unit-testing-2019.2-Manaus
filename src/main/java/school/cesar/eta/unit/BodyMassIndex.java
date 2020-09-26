@@ -6,7 +6,7 @@ public class BodyMassIndex {
         return weight / Math.pow(height, 2);
     }
 
-    public static String classify(double bmi) {
+    public String classify(double bmi) {
         String category = "Severely Underweight";
 
         if (bmi >= 30) {
