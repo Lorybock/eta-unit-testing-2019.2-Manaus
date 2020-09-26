@@ -3,14 +3,22 @@ package school.cesar.eta.unit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 public class BodyMassIndexTest {
+    @Spy
     BodyMassIndex bmi;
 
-    @BeforeEach
-    public void setup(){
-        bmi = new BodyMassIndex();
-    }
+//    @BeforeEach
+//    public void setup(){
+//        bmi = new BodyMassIndex();
+//    }
 
     @Test
     public void classify_bmiUnder16_SeverelyUnderweight(){
@@ -89,5 +97,13 @@ public class BodyMassIndexTest {
         Assertions.assertEquals(1, params[0]);
         Assertions.assertEquals(2, params[1]);
         Assertions.assertEquals(10, params[2]);
+    }
+
+    @Test
+    public void classify_mokitoSpyMethods() {
+        when(bmi.calculate(1,2)).thenReturn(22.0);
+        bmi.classify(1, 2);
+        verify(bmi,times(1)).calculate(1,2);
+        verify(bmi,times(1)).classify(22.0);
     }
 }
